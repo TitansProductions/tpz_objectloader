@@ -11,7 +11,7 @@ local GetTableLength = function(T)
 end
 
 local LoadModel = function(inputModel)
-   local model = joaat(inputModel)
+   local model = GetHashKey(inputModel)
 
    RequestModel(model)
 
@@ -46,7 +46,7 @@ AddEventHandler('onResourceStop', function(resourceName)
       for _, location in pairs (Config.Locations) do
 
          if location.EntityHandler then
-            RemoveEntityProperly(location.EntityHandler, joaat(location.Object) )
+            RemoveEntityProperly(location.EntityHandler, GetHashKey(location.Object) )
             location.EntityHandler = nil
          end
   
@@ -80,7 +80,7 @@ Citizen.CreateThread(function()
 
              if distance > location.ObjectRenderDistance and location.EntityHandler then
 
-               RemoveEntityProperly(location.EntityHandler, joaat(location.Object) )
+               RemoveEntityProperly(location.EntityHandler, GetHashKey(location.Object) )
                location.EntityHandler = nil
             end
 
@@ -89,7 +89,7 @@ Citizen.CreateThread(function()
                LoadModel( location.Object )
 
                local toVec  = vector3(location.Coords.x, location.Coords.y, location.Coords.z)
-               local object = CreateObject(joaat(location.Object), toVec, false, false, false, false, false)
+               local object = CreateObject(GetHashKey(location.Object), toVec, false, false, false, false, false)
 
                SetEntityVisible(object, true)
                SetEntityRotation(object, location.Coords.pitch, location.Coords.roll, location.Coords.yaw, 2)
